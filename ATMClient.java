@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
@@ -108,5 +109,24 @@ public class ATMClient {
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnNewButton.setBounds(464, 214, 170, 39);
 		frame.getContentPane().add(btnNewButton);
+		
+		JButton btnWithdraw = new JButton("Withdraw");
+		btnWithdraw.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Socket skClient = new Socket("localhost", 8000);
+					PrintWriter outClient = new PrintWriter(skClient.getOutputStream());
+					String chuoiGui = tfMoney.getText()+";"+"Withdraw";
+					outClient.println(chuoiGui);
+					outClient.flush();
+				} catch (Exception e2) {
+					// TODO: handle exception
+					e2.printStackTrace();
+				}
+			}
+		});
+		btnWithdraw.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnWithdraw.setBounds(49, 320, 165, 51);
+		frame.getContentPane().add(btnWithdraw);
 	}
 }
