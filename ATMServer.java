@@ -1,6 +1,7 @@
 import java.io.DataInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import javax.swing.JOptionPane;
@@ -27,7 +28,19 @@ public class ATMServer {
 						break;
 						}
 				case "Withdraw":{
-					
+					try {
+						String accountID="987321";
+						Business bs = new Business();
+						bs.ConnectDB();
+						PreparedStatement ps = bs.conn.prepareStatement("EXEC sp_UpdateBalancebyID ?,?");
+						ps.setString(1, accountID);
+						ps.setFloat(2, money);
+						ps.execute();		
+						
+					} catch (Exception e2) {
+						// TODO: handle exception
+						e2.printStackTrace();
+					}
 				}
 				case "Balance":{
 					String accountID="987321";
