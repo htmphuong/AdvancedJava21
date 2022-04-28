@@ -1,0 +1,11 @@
+CREATE PROCEDURE sp_UpdateBalancebyID @AccountID varchar(50),@money float
+AS
+	update Account set Balance=Balance+@money where AccountID=@AccountID
+GO
+EXEC sp_UpdateBalancebyID '987321',20000
+
+
+CREATE PROCEDURE [dbo].[sp_CheckBalance] @AccountID nvarchar(50)
+AS
+	select Balance from Account where AccountID=@AccountID
+GO
